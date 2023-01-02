@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'HomePage' %}">Price Tracker</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'HomePage' %}">Home</a></li>
+            <li class="active"><a href="{% url 'showcust' %}">Customer Database</a></li>
+            <li><a href="{% url 'showpro' %}">Product Database</a></li>
+          </ul>
+        </div>
+    </nav>
+    <center>
+        <h4>Update Record in Customer</h4>
+        <form action="/Update/{{CustomerModel.cust_id}}" method="POST">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar container">
+                {% csrf_token %}
+                <table border="1" class="table table-bordered table-striped mb-0 table-hover">
+                <tr>
+                    <td>cust_id</td>
+                    <td><input type="text" name="cust_id" value="{{CustomerModel.cust_id}}" readonly></td>
+                </tr>
+                <tr>
+                    <td>cust_name</td>
+                    <td><input type="text" name="cust_name" value="{{CustomerModel.cust_name}}"></td>
+                </tr>
+                <tr>
+                    <td>cust_pass</td>
+                    <td><input type="text" name="cust_pass" value="{{CustomerModel.cust_pass}}"></td>
+                </tr>
+                <tr>
+                    <td>dob</td>
+                    <td><input type="date" name="dob" value="{{CustomerModel.dob}}"></td>
+                </tr>
+                <tr>
+                    <td>pincode</td>
+                    <td><input type="text" name="pin_code" value="{{CustomerModel.pin_code}}"></td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td><input type="text" name="email" value="{{CustomerModel.email}}"></td>
+                </tr>
+                <tr>
+                    <td>phone_num</td>
+                    <td><input type="text" name="phone_num" value="{{CustomerModel.phone_num}}"></td>
+                </tr>
+                <tr>
+                    <!-- <td><input type="submit" value="Update Record"></td> -->
+                    <td><button type="submit" class="btn btn-info" value="Update Record">Update</button></td>
+                    <td>
+                        {% if messages %}
+                        {% for mess in messages %}
+                        <b style="color: green;">{{mess}}</b>
+                        {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+            <a href="{% url 'showcust' %}" class="btn btn-info" role="button">back</a>
+        </form>
+    </center>
+</body>
+</html>

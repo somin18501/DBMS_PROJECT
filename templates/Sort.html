@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .my-custom-scrollbar {
+        position: relative;
+        height: 300px;
+        overflow: auto;
+        }
+        .table-wrapper-scroll-y {
+        display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'HomePage' %}">Price Tracker</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'HomePage' %}">Home</a></li>
+                <li class="active"><a href="{% url 'showcust' %}">Customer Database</a></li>
+                <li><a href="{% url 'showpro' %}">Product Database</a></li>
+            </ul>
+        </div>
+    </nav>
+    <center>
+        <h2>Customer Record</h2>
+        <form method="POST" action="/Sort">
+            {% csrf_token %}
+            <label for="Sort"></label>
+            <select name="Sort">
+                <option value="cust_id">Customer ID</option>
+                <option value="cust_name">Customer Name</option>
+                <option value="dob">Date of birth</option>
+                <option value="pin_code">Pincode</option>
+                <option value="phone_num">Contact no.</option>
+            </select>
+            <!-- <input type="submit" value="Sort"/> -->
+            <button type="submit" class="btn btn-info" value="Sort" style="margin-bottom: 3px;">Sort</button>
+        </form>
+
+        <div class="table-wrapper-scroll-y my-custom-scrollbar container">
+            <table border="1" class="table table-bordered table-striped mb-0 table-hover">
+                <tr>
+                    <th>cust_id</th>
+                    <th>cust_name</th>
+                    <th>cust_pass</th>
+                    <th>dob</th>
+                    <th>pin_code</th>
+                    <th>email</th>
+                    <th>phone_number</th>
+                </tr>
+                {% for result in data %}
+                <tr>
+                    <td>{{result.cust_id}}</td>
+                    <td>{{result.cust_name}}</td>
+                    <td>{{result.cust_pass}}</td>
+                    <td>{{result.dob}}</td>
+                    <td>{{result.pin_code}}</td>
+                    <td>{{result.email}}</td>
+                    <td>{{result.phone_num}}</td>
+                    <td><a style="text-decoration: none" href="Edit/{{result.cust_id}}">Edit</a></td>
+                    <td><a style="text-decoration: none" href="Delete/{{result.cust_id}}" onclick="return confirm('Are you sure you want to delete the record ?')">Delete</a></td>
+                    <td><a style="text-decoration: none" href="Seealert/{{result.cust_id}}">See Alerts</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <a href="{% url 'showcust' %}" class="btn btn-info" role="button">back</a>
+    </center>
+</body>
+
+</html>

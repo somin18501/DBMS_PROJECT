@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'HomePage' %}">Price Tracker</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'HomePage' %}">Home</a></li>
+            <li><a href="{% url 'showcust' %}">Customer Database</a></li>
+            <li class="active"><a href="{% url 'showpro' %}">Product Database</a></li>
+          </ul>
+        </div>
+    </nav>
+    <center>
+        <h4>Update Record in Product</h4>
+        <form action="/Update2/{{ProductModel.pro_id}}" method="POST">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar container">
+                {% csrf_token %}
+                <table border="1" class="table table-bordered table-striped mb-0 table-hover">
+                    <tr>
+                        <td>pro_id</td>
+                        <td><input type="text" name="pro_id" value="{{ProductModel.pro_id}}" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>pro_name</td>
+                        <td><input type="text" name="pro_name" value="{{ProductModel.pro_name}}"></td>
+                    </tr>
+                    <tr>
+                        <td>price</td>
+                        <td><input type="number" name="price" value="{{ProductModel.price}}"></td>
+                    </tr>
+                    <tr>
+                        <td>dept_name</td>
+                        <!-- <td><input type="text" name="dept_name" value="{{ProductModel.dept_name}}"></td> -->
+                        <td><select name="dept_name">
+                            <option>{{ProductModel.dept_name}}</option>
+                            <option>Grocery</option>
+                            <option>Fashion</option>
+                            <option>Footwear</option>
+                            <option>Beauty</option>
+                            <option>Sports</option>
+                            <option>Electronics</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>brand_name</td>
+                        <!-- <td><input type="text" name="brand_name" value="{{ProductModel.brand_name}}"></td> -->
+                        <td><select name="brand_name">
+                            <option>{{ProductModel.brand_name}}</option>
+                            <option>One Plus</option>
+                            <option>Levis</option>
+                            <option>Zara</option>
+                            <option>Samsung</option>
+                            <option>Asus</option>
+                            <option>US Polo</option>
+                            <option>Mama Earth</option>
+                            <option>Apple</option>
+                            <option>Adani</option>
+                            <option>Dawaat</option>
+                            <option>Nike</option>
+                            <option>Fogg</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>plat_name</td>
+                        <!-- <td><input type="text" name="plat_name" value="{{ProductModel.plat_name}}"></td> -->
+                        <td><select name="plat_name">
+                            <option>{{ProductModel.plat_name}}</option>
+                            <option>Flipkart</option>
+                            <option>Olx</option>
+                            <option>Myntra</option>
+                            <option>Amazon</option>
+                            <option>JioMart</option>
+                            <option>Nykaa</option>
+                            <option>Naptol</option>
+                            <option>BigBasket</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>disc_rate</td>
+                        <td><input type="number" name="disc_rate" value="{{ProductModel.disc_rate}}"></td>
+                    </tr>
+                    <tr>
+                        <td>ratings</td>
+                        <td><input type="number" name="ratings" value="{{ProductModel.ratings}}"></td>
+                    </tr>
+                    <tr>
+                        <!-- <td><input type="submit" value="Update Record"></td> -->
+                        <td><button type="submit" class="btn btn-info" value="Update Record">Update</button></td>
+                        <td>
+                            {% if messages %}
+                            {% for mess in messages %}
+                            <b style="color: green;">{{mess}}</b>
+                            {% endfor %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <a href="{% url 'showpro' %}" class="btn btn-info" role="button">back</a>
+        </form>
+    </center>
+</body>
+</html>

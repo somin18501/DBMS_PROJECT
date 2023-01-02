@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .my-custom-scrollbar {
+        position: relative;
+        height: 300px;
+        overflow: auto;
+        }
+        .table-wrapper-scroll-y {
+        display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'HomePage' %}">Price Tracker</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'HomePage' %}">Home</a></li>
+            <li class="active"><a href="{% url 'showcust' %}">Customer Database</a></li>
+            <li><a href="{% url 'showpro' %}">Product Database</a></li>
+          </ul>
+        </div>
+    </nav>
+    <center>
+        <h3>Customer's Alerts Record</h3>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar container">
+            <table border="1" class="table table-bordered table-striped mb-0 table-hover">
+                <tr>
+                    <th>a_id</th>
+                    <th>pro_id</th>
+                    <th>cust_id</th>
+                    <th>price_drop</th>
+                    <th><a href="{% url 'showpro' %}" class="btn btn-info" role="button">Set New Alert</a></th>
+                </tr>
+                {% for result in data %}
+                <tr>
+                    <td>{{result.a_id}}</td>
+                    <td>{{result.pro_id}}</td>
+                    <td>{{result.cust_id}}</td>
+                    <td>{{result.price_drop}}</td>
+                    <!-- <td><a href="EditA/{{result.a_id}}">Edit</a></td> -->
+                    <td><a style="text-decoration: none" href="http://127.0.0.1:8000/Delete3/{{result.a_id}}" onclick="return confirm('Are you sure you want to delete the alert ?')">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <a href="{% url 'showcust' %}" class="btn btn-info" role="button">back</a>
+    </center>
+</body>
+</html>
