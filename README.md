@@ -5,7 +5,7 @@ This project is part of my **Database Management System** course which is based 
 ### Steps followed while creation of Schema:
 1. Formation of SRS
 2. Noun analysis based on SRS
-3. Formation ER diagram
+3. Formation of ER diagram
 4. Normalization of schema
 
 ### Making a basic web application for accessing Database
